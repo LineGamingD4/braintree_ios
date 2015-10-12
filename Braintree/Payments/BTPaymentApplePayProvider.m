@@ -102,6 +102,12 @@
 
     PKPaymentRequest *paymentRequest = self.paymentRequest;
 
+    // TODO: Set through API Instead of setting through local plist.
+    if ([[NSBundle mainBundle] objectForInfoDictionaryKey:@"appMerchantIdentifier"]) {
+        NSString *appMerchantIdentifier = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"appMerchantIdentifier"];
+        paymentRequest.merchantIdentifier = appMerchantIdentifier;
+    }
+    
     if (!paymentRequest) {
         NSError *error = [NSError errorWithDomain:BTPaymentProviderErrorDomain
                                              code:BTPaymentProviderErrorInitialization

@@ -163,9 +163,10 @@ NSString *BTPaymentButtonPaymentButtonCellIdentifier = @"BTPaymentButtonPaymentB
         if (![self.paymentProvider canCreatePaymentMethodWithProviderType:BTPaymentProviderTypeVenmo]) {
             [mutableProviderTypes removeObject:@(BTPaymentProviderTypeVenmo)];
         }
-        if (![self.paymentProvider canCreatePaymentMethodWithProviderType:BTPaymentProviderTypePayPal]) {
+        // TODO: enable pay pal here.
+//        if (![self.paymentProvider canCreatePaymentMethodWithProviderType:BTPaymentProviderTypePayPal]) {
             [mutableProviderTypes removeObject:@(BTPaymentProviderTypePayPal)];
-        }
+//        }
         if (![self.paymentProvider canCreatePaymentMethodWithProviderType:BTPaymentProviderTypeCoinbase]) {
             [mutableProviderTypes removeObject:@(BTPaymentProviderTypeCoinbase)];
         }
