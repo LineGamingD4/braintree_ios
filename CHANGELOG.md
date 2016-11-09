@@ -1,5 +1,197 @@
 # Braintree iOS SDK Release Notes
 
+## 4.7.2 (2016-11-08)
+
+* Update Apple-Pay
+  * Fix issue when using `BTConfiguration:applePaySupportedNetworks` with `Discover` enabled on devices `<iOS 9`
+  * Add `BTApplePayClient:paymentRequest:` - creates a `PKPaymentRequest` with values from your Braintree Apple Pay configuration
+* Update documentation and README
+
+## 4.7.1 (2016-10-18)
+
+* Update to Kount 3.1
+* Update libPPRiskComponent to latest version
+* Refactored ACKNOWLEDGEMENTS.md with links instead of text
+* Re-add new Drop-In demo from BraintreeDropIn
+* Fix fbinfer warnings
+
+## 4.7.0 (2016-09-23)
+
+* Move `BraintreeDropIn` and `BraintreeUIKit` to a new [separate repository](https://github.com/braintree/braintree-ios-drop-in)
+  to allow cleaner separation and iteration for newer versions of Drop-In.
+  * Please see the new repository for updated integration instructions if you were using the Beta Drop-In Update.
+  * If you were using Drop-In from `BraintreeUI`, you do not have to update. However, you may want to check out the
+    new Drop-In for an updated experience.
+* Fix issue with `DataCollector` setting the merchant ID automatically to configure Kount
+
+## 4.6.1 (2016-09-15)
+
+* Fix conflicting private API name Fixes #265
+* Fix deprecation warnings for Xcode 8 Fixes #267
+* Fix target membership for static library Fixes #264
+* Improve Maestro card number recognition
+
+## 4.6.0 (2016-09-09)
+
+* Fix nullability annotations for Xcode 8 Fixes #260
+* Add `userAction` property to `BTPayPalRequest`
+* (BETA) Updates to `BraintreeDropIn`
+
+## 4.5.0 (2016-08-05)
+
+* Update `DataCollector` API
+  * Add initializer and new data collection methods that take a completion block
+    * New data collection methods use Braintree gateway configuration to configure Kount
+  * Previous API for `BTDataCollector` has been deprecated
+* Remove Venmo user whitelist – all Venmo users may now make merchant purchases using Venmo.
+
+## 4.4.1 (2016-07-22)
+
+* Update and fix issues in `BraintreeDropIn` based on feedback
+* Make more headers public in `BraintreeUIKit`
+* Fix `BraintreeUIKit` module name for Cocoapods
+* Add support for 3D Secure to `BraintreeDropIn` (see Drop-In docs)
+* Update the [Drop-In docs](Docs/Drop-In-Update.md)
+* Add features to support vaulting Venmo when using Drop-In (coming soon)
+
+## 4.4.0 (2016-07-14)
+
+* (BETA) Release of new `BraintreeDropIn` and `BraintreeUIKit` frameworks
+  * `BraintreeDropIn` bundles our new UI components and Braintree API's for a whole new Drop-In experience
+  * UI components, helpers, vector art and localizations are now public and fully accessible via `BraintreeUIKit`
+  * [Learn more about our Drop-In Update](Docs/Drop-In-Update.md)
+  * Note that our legacy Drop-In (`BraintreeUI`) has not changed
+* (BETA) Various updates to the UnionPay component
+* Improve error messages when Braintree gateway returns 422 validation errors
+
+## 4.3.2 (2016-06-09)
+
+* Update Pay with Venmo to use merchant ID and environment from configuration
+* PayPal Checkout supports an intent option, which can be authorize or sale
+  * See `BTPayPalRequest`'s `intent` property
+* Provide better `NSError` descriptions when Braintree services return a 4xx or 5xx HTTP error
+
+## 4.3.1 (2016-05-25)
+
+* Add public method to fetch a customer's vaulted payment method nonces
+* Drop-in bug fixes
+  * Do not show mobile phone number field
+  * Fix issue where American Express display text is truncated
+* Merge [#241](https://github.com/braintree/braintree_ios/pull/241) - Add missing source files to Braintree static library target. (Thanks @AlexDenisov!)
+
+## 4.3.0 (2016-05-03)
+
+* Add support for UnionPay cards
+  * UnionPay is now in private beta. To request access, email [unionpay@braintreepayments.com](mailto:unionpay@braintreepayments.com).
+* Drop-in displays vaulted payment methods by default first
+  * Payment method nonces have an `isDefault` property
+* Add `BTHTTPErrorCodeRateLimitError` to indicate when Braintree is rate-limiting your app's API requests
+* Update support for static library integrations
+  * Fix issues with missing classes in the Braintree static library target
+  * Add [guide for Static Library integrations](Docs/Braintree-Static-Integration-Guide.md)
+* Use in-memory `NSURLCache` for configuration caching
+* Analytics events are batched together for better performance
+* Update theme of card form child components when using custom theme
+* `PayPalOneTouch` is less chatty when logging to console
+* Add ACKNOWLEDGEMENTS.md
+* Update `PayPalDataCollector` to include latest `libPPRiskComponent.a`
+* Remove unused targets and schemes: `Demo-StaticLibrary`, `UnitTests-CocoaPods`, and `UnitTests-StaticLibrary`
+
+## 4.2.3 (2016-02-22)
+
+* Remove assertion from PayPal One Touch Core when reading from Keychain fails
+* Remove NSLog() from PayPal One Touch Core
+* Fix nullability annotation in `PPFPTITracker.h` to squelch error in Xcode 7.3 Beta
+
+## 4.2.2 (2016-02-11)
+
+* Fix crash that occurs when downgrading Braintree from 4.2.x to previous versions
+
+## 4.2.1 (2016-02-05)
+
+* Fix deprecation warning/error in PayPal One Touch for apps that target >= iOS 9.0
+
+## 4.2.0 (2016-02-04)
+
+* Open source PayPal One Touch library
+  * Source code for PayPal One Touch library is now included in Braintree iOS SDK repository
+  * Added CocoaPods subspecs for PayPalOneTouch and PayPalDataCollector
+* Improve `BTPaymentButton`
+  * Payment button displays payment options based on configuration
+  * Shows loading activity indicator when fetching configuration
+  * Updated style for PayPal button when PayPal is the only available payment option
+  * Can manually configure available payment options via `enabledPaymentOptions` property
+* Added `setCardNumber:` and `setCardExpirationMonth:year:` to `BTDropInViewController`
+  * Drop-in card form can be prepopulated, e.g. by card.io
+* Deprecate `BTDataCollector` `payPalClientMetadataID` and `collectPayPalClientMetadataId`
+  * Use `PPDataCollector` `collectPayPalDeviceData` when you only need to collect PayPal device data
+* Add Travis CI to run tests
+
+## 4.1.3 (2016-01-08)
+
+* Prevent crash when `BTPayPalDriver` instantiates `SFSafariViewController` with an invalid URL, and return an error instead
+* Update `BTTokenizationService` `allTypes` property to be `NSArray <NSString *>`
+
+## 4.1.2 (2015-12-09)
+
+* Workaround for Swift compiler bug that causes `BTJSON` to conflict with Alamofire (see Issue [#195](https://github.com/braintree/braintree_ios/issues/195))
+  * For the merchant apps that read their configuration directly from `BTJSON` via Objective-C, you may need to switch from dot syntax to square brackets to call `BTJSON` methods
+* Ignore `UIAlertView` deprecation warning in `BTDropInErrorAlert`
+
+## 4.1.1 (2015-12-08)
+
+* Bug fix for Drop-in view controller showing empty `BTPaymentButton`
+* Update Kount to 2.6.2
+
+## 4.1.0 (2015-12-07)
+
+* Limited release of Pay With Venmo
+  * Contact [pay-with-venmo@braintreepayments.com](mailto:pay-with-venmo@braintreepayments.com) if you are interested in early access
+* Fix for Carthage integrations: remove reference to Braintree developer team from Xcode framework targets
+* Streamlined vector graphics for JCB logo to reduce build time of BraintreeUI
+
+## 4.0.2 (2015-11-30)
+
+* If the Client Token has a Customer ID, Drop-in will automatically fetch the customer's vaulted payment methods.
+  * A bug in 4.0.0-4.0.1 prevented Drop-in from fetching payment methods even if a Customer ID is provided in the Client Token; apps needed to call `fetchPaymentMethodsOnCompletion` before presenting Drop-in.
+  * You can still call `fetchPaymentMethodsOnCompletion` to pre-fetch payment methods, so that Drop-in doesn't need to show its own loading activity indicator.
+* Prevent calling requestsDismissalOfViewController on iOS 8 when there is nothing to dismiss. (Merge [#199](https://github.com/braintree/braintree_ios/pull/199) - thanks, @Reflejo!)
+* Drop-in Add Payment Method fixes
+  * Show/hide CVV and postal code fields without flicker
+  * Use Save bar button item in upper right to add additional payment methods
+* `BTPayPalDriver` will not call `BTAppSwitchDelegate` callback methods when `SFSafariViewController` is presented (Issue [#188](https://github.com/braintree/braintree_ios/issues/188))
+
+## 4.0.1 (2015-11-17)
+
+* Drop-in fixes
+  * Fixed a bug that prevented cards from being vaulted.
+    * Note: [BTCard's behavior has changed slightly](https://github.com/braintree/braintree_ios/commit/18b67d3).
+  * Fixed a bug that prevented card types from being parsed.
+  * Updated Demo to use paymentRequest and always call completionBlock.
+* Resolved an analyzer warning in BTAPIClient.m.
+
+## 4.0.0 (2015-11-09)
+
+* Remodel the iOS SDK into frameworks with smaller filesize and greater flexibility.
+* The public API has changed significantly in this release. For details, see the [v4 Migration Guide](Docs/Braintree-4.0-Migration-Guide.md) and the public header files.
+* APIs have been refactored to use completion blocks instead of delegate methods.
+* BTPaymentProvider has been removed. Instead, use payment option frameworks. For example, import BraintreeApplePay and use BTApplePayClient.
+* Added support for [Tokenization Keys](https://developers.braintreepayments.com/guides/authorization/tokenization-key) in addition to Client Tokens.
+* All methods and properties have been updated with nullability annotations.
+* Added support for Carthage in addition to CocoaPods.
+* PayPal One Touch is greatly improved in this release. It's slimmer and provides a better user experience, with browser switch on iOS 8 and SFSafariViewController on iOS 9.
+* Added support for PayPal billing agreements (the New Vault Flow) and one-time payments.
+* Drop-in is now part of the new BraintreeUI framework. BraintreeUI has been refactored for greater flexibility; it will automatically exclude any payment options that are not included in your build (as determined by CocoaPods subspecs or Carthage frameworks).
+* Venmo One Touch has been excluded from this version. To join the beta for Pay with Venmo, contact Braintree Support.
+* BTData has been renamed to BTDataCollector.
+* BTPaymentMethod has been renamed to BTPaymentMethodNonce.
+
+As always, feel free to [open an Issue](https://github.com/braintree/braintree_ios/issues/new) with any questions or suggestions that you have.
+
+## 3.9.7 (2015-12-21)
+
+* Ignore `UIAlertView` deprecation warning in `BTDropInErrorAlert`
+
 ## 3.9.6 (2015-10-08)
 
 * Update Kount DeviceCollectorSDK to v2.6.2 to [fix #175](https://github.com/braintree/braintree_ios/issues/175) (thanks, @keith)
@@ -18,6 +210,37 @@
 * Update Apple Pay support for iOS 9. `BTApplePayPaymentMethod` changes:
   * Deprecate `ABRecordRef` properties: `billingAddress` and `shippingAddress`
   * Add `PKContact` properties: `billingContact` and `shippingContact`
+
+## 3.9.2-pre6 (2015-08-28)
+* PayPal
+  * Fix canOpenUrl warnings in iOS9
+* Added `PayerId` and `ClientMetadataId` to `BTPayPalPaymentMethod`
+
+## 3.9.2-pre5 (2015-08-19)
+* PayPal
+  * Fix Billing Agreements support
+  * Update PayPal One Touch Core
+
+## 3.9.2-pre4 (2015-08-04)
+* PayPal
+  * Update support for PayPal Checkout
+  * Add support for PayPal Billing Agreement authorization
+  * Update PayPal One Touch Core
+
+## 4.0.0-pre2 (2015-06-23)
+
+* PayPal
+  * For single payments, `BTPayPalPaymentMethod` now provides `firstName`, `lastName`, `phone`, `billingAddress`, and `shippingAddress` properties.
+  * For future payments, add support for additional scopes.
+  * Add demo for PayPal Checkout and scopes.
+* Change @import to #import (#124).
+* Add accessibility label to BTUICTAControl.
+
+## 4.0.0-pre1
+
+* Replace mSDK with One Touch Core
+  * This replaces PayPal in-app login with browser switch for future payments consent
+  * This adds the capability to perform checkout (single payments) with One Touch
 
 ## 3.9.3 (2015-08-31)
 
@@ -43,7 +266,7 @@
   * Improve mSDK screen blurring when app is backgrounded. NOTE: This change requires that you add `Accelerate.framework` to your project
   * Bug fixes
 
-## 3.9.0 (2015-06-12)
+## 3.9.1 (2015-06-12)
 
 * Add support for additional scopes during PayPal authorization
   * Specifically supporting the `address` scope
